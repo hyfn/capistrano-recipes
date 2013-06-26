@@ -68,6 +68,16 @@ namespace :deploy do
     run "ln -nfs #{shared_path}/uploads #{release_path}/web/assets/uploads" 
   end
 
+  desc "Enable the admin section"
+  task :enable_admin, :roles => :app do
+    run "ln -nfs #{latest_release}/web/admin.php.default #{latest_release}/web/admin.php"
+  end
+
+  desc "Disable the admin section"
+  task :disable_admin, :roles => :app do
+    run "rm #{latest_release}/web/admin.php"
+  end
+
   desc "This is here to overide the original :restart"
   task :restart, :roles => :app do
     # do nothing but overide the default
